@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "674252167224",
+    "firebase_url": "https://myproject-bbee2.firebaseio.com",
+    "project_id": "myproject-bbee2",
+    "storage_bucket": "myproject-bbee2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674252167224:android:daac32797ff294fb",
+        "android_client_info": {
+          "package_name": "vyomchandra.com.completeproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674252167224-u7cjrk4dhif1egmmstumnfebthn40o3l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vyomchandra.com.completeproject",
+            "certificate_hash": "787d1a96d16502fabb64925787b5ba9830ff9b09"
+          }
+        },
+        {
+          "client_id": "674252167224-b7dvilg36dhkq19ob1o3del5qu33snnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr9L1TpSBT7Y_mBH-uJjbwHr-kn0XF_3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674252167224-b7dvilg36dhkq19ob1o3del5qu33snnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
