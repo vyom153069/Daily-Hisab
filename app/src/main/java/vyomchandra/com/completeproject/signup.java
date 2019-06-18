@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,31 +24,47 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class signup extends AppCompatActivity {
 
-    private EditText email,pass;
-    private Button signin,signup;
+    private EditText email,pass,confirm;
+    private Button signup;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+
+    private RelativeLayout rlayout;
+    private Animation animation;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         signup=findViewById(R.id.sign_up_in);
-       signin=findViewById(R.id.sign_in);
-       email=findViewById(R.id.email_signup);
-       pass=findViewById(R.id.password_signup);
+        //signin=findViewById(R.id.sign_in);
+        email=findViewById(R.id.email_signup);
+        pass=findViewById(R.id.password_signup);
+        confirm=findViewById(R.id.confirm_password);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
+
+        rlayout     = findViewById(R.id.rlayout);
+        animation   = AnimationUtils.loadAnimation(this,R.anim.uptodown);
+        rlayout.setAnimation(animation);
+
+
 
 
         firebaseAuth= FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(this);
 
-        signin.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent i=new Intent(signup.this,MainActivity.class);
-               startActivity(i);
-           }
-       });
+//        signin.setOnClickListener(new View.OnClickListener() {
+//           @Override
+//           public void onClick(View view) {
+//               Intent i=new Intent(signup.this,MainActivity.class);
+//               startActivity(i);
+//           }
+//       });
        signup.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -77,9 +99,20 @@ public class signup extends AppCompatActivity {
        });
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        finish();
+//        System.exit(0);
+//    }
+
     @Override
-    public void onBackPressed() {
-        finish();
-        System.exit(0);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

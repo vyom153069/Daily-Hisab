@@ -1,14 +1,18 @@
 package vyomchandra.com.completeproject;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     private EditText email,pass;
-    private Button signup,signin;
+    private Button signin;
+    private ImageButton signup;
+    TextView tvLogin;
 
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -31,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        email=findViewById(R.id.email_in);
+        email=findViewById(R.id.email_signin);
         pass=findViewById(R.id.password_signin);
         signup=findViewById(R.id.sign_up);
         signin=findViewById(R.id.sign_in);
-        FirebaseApp.initializeApp(this);
-        firebaseAuth= FirebaseAuth.getInstance();
+        tvLogin=findViewById(R.id.tvLogin);
+        firebaseAuth=FirebaseAuth.getInstance();
 
-       if(firebaseAuth.getCurrentUser()!=null)
+        if(firebaseAuth.getCurrentUser()!=null)
         {
             startActivity(new Intent(this,HomeActivity.class));
         }
@@ -49,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,signup.class);
-                startActivity(i);
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View,String> (tvLogin,"login");
+                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+                startActivity(i,activityOptions.toBundle());
             }
         });
         signin.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        System.exit(0);
+        finishAffinity();
     }
 }

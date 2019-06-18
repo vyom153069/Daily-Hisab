@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".credits"/>
         <activity android:name=".signup" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -1,5 +1,6 @@
 package vyomchandra.com.completeproject;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -104,11 +106,27 @@ public class HomeActivity extends AppCompatActivity {
                 String mDate= DateFormat.getDateInstance().format(new Date());
                 String id=mDatabase.push().getKey();
 
-                Data data=new Data(title,description,id,budget,mDate);
-                mDatabase.child(id).setValue(data);
+                if(TextUtils.isEmpty(title)||TextUtils.isEmpty(description)||TextUtils.isEmpty(budget)||!TextUtils.isDigitsOnly(budget)) {
+                    if (TextUtils.isEmpty(title)) {
+                        mTitle.setError("required");
+                    }
+                    if (TextUtils.isEmpty(description)) {
+                        mDescription.setError("required");
+                    }
+                    if (TextUtils.isEmpty(budget)) {
+                        mBudget.setError("required");
+                    }
+                    if(!TextUtils.isDigitsOnly(budget)){
+                        mBudget.setError("Should be a number");
+                    }
+                }
+                else {
+                    Data data = new Data(title, description, id, budget, mDate);
+                    mDatabase.child(id).setValue(data);
 
-                Toast.makeText(HomeActivity.this, "Data inserted", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                    Toast.makeText(HomeActivity.this, "Data inserted", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
             }
         });
         dialog.show();
@@ -198,9 +216,26 @@ public class HomeActivity extends AppCompatActivity {
                 Budget=mBudget.getText().toString().trim();
                 String mDate=DateFormat.getDateInstance().format(new Date());
 
-                Data data=new Data(Title,Description,post_key,Budget,mDate);
-                mDatabase.child(post_key).setValue(data);
-                dialog.dismiss();
+                if(TextUtils.isEmpty(Title)||TextUtils.isEmpty(Description)||TextUtils.isEmpty(Budget)||!TextUtils.isDigitsOnly(Budget)){
+                    if(TextUtils.isEmpty(Title)){
+                        mTitle.setError("Required");
+                    }
+                    if(TextUtils.isEmpty(Description)){
+                        mDescription.setError("Required");
+                    }
+                    if(TextUtils.isEmpty(Budget)){
+                        mBudget.setError("Required");
+                    }
+                    if(!TextUtils.isDigitsOnly(Budget)){
+                        mBudget.setError("should be number");
+                    }
+                }
+                else {
+
+                    Data data = new Data(Title, Description, post_key, Budget, mDate);
+                    mDatabase.child(post_key).setValue(data);
+                    dialog.dismiss();
+                }
             }
         });
         mDelete.setOnClickListener(new View.OnClickListener() {
@@ -223,10 +258,45 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-                mAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
+                AlertDialog.Builder builder=new AlertDialog.Builder(HomeActivity.this);
+                builder.setMessage("Do you want to logout?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mAuth.signOut();
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+                AlertDialog alert=builder.create();
+                alert.setTitle("Exit");
+                alert.show();
+
+                //mAuth.signOut();
+
+                // finish();
                 break;
+            case R.id.credits:
+                //startActivity(new Intent(this,credits.class));
+                Intent i=new Intent(this,credits.class);
+                startActivity(i);
+                break;
+            case R.id.shareItem:
+                Toast.makeText(this, "share", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.search:
+                Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
 }
+
