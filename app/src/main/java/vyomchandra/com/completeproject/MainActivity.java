@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText email,pass;
     private Button signin;
     private ImageButton signup;
-    TextView tvLogin;
+    TextView tvLogin,tvForgot;
 
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -42,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
         signup=findViewById(R.id.sign_up);
         signin=findViewById(R.id.sign_in);
         tvLogin=findViewById(R.id.tvLogin);
+        tvForgot=findViewById(R.id.tvForgot);
+
         firebaseAuth=FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser()!=null)
+
+        if(firebaseAuth.getCurrentUser()!=null&&firebaseAuth.getCurrentUser().isEmailVerified())
         {
             startActivity(new Intent(this,HomeActivity.class));
         }
@@ -84,20 +87,28 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()){
                            if(firebaseAuth.getCurrentUser().isEmailVerified()) {
-                               Toast.makeText(MainActivity.this, "complete", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(MainActivity.this, "complete", Toast.LENGTH_LONG).show();
                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                progressDialog.dismiss();
                            }else{
-                               Toast.makeText(MainActivity.this, "Please verify your email address ", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(MainActivity.this, "Please verify your email address ", Toast.LENGTH_LONG).show();
                                progressDialog.dismiss();
                            }
                        }else
                        {
                            progressDialog.dismiss();
-                           Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                           Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+
                        }
                     }
                 });
+            }
+        });
+
+        tvForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,forgot_pass.class));
             }
         });
     }

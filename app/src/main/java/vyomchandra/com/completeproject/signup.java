@@ -91,13 +91,13 @@ signup extends AppCompatActivity {
                               @Override
                               public void onComplete(@NonNull Task<Void> task) {
                                if(task.isSuccessful()){
-                                   Toast.makeText(signup.this, "Registered Successfully please check email for verification", Toast.LENGTH_SHORT).show();
+                                   Toast.makeText(signup.this, "Registered Successfully please check email for verification", Toast.LENGTH_LONG).show();
                                    email.setText("");
                                    pass.setText("");
                                }
                                else
                                {
-                                   Toast.makeText(signup.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                   Toast.makeText(signup.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                }
                               }
                           });
@@ -105,7 +105,7 @@ signup extends AppCompatActivity {
                           progressDialog.dismiss();
 
                       }else{
-                          Toast.makeText(signup.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                          Toast.makeText(signup.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
 
                       }
                    }
