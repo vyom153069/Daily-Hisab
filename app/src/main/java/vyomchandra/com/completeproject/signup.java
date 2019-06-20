@@ -22,7 +22,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class signup extends AppCompatActivity {
+public class
+signup extends AppCompatActivity {
 
     private EditText email,pass,confirm;
     private Button signup;
@@ -85,12 +86,26 @@ public class signup extends AppCompatActivity {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
                       if(task.isSuccessful()){
-                          Toast.makeText(signup.this, "complete", Toast.LENGTH_SHORT).show();
-                          startActivity(new Intent(signup.this,HomeActivity.class));
+
+                          firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                              @Override
+                              public void onComplete(@NonNull Task<Void> task) {
+                               if(task.isSuccessful()){
+                                   Toast.makeText(signup.this, "Registered Successfully please check email for verification", Toast.LENGTH_SHORT).show();
+                                   email.setText("");
+                                   pass.setText("");
+                               }
+                               else
+                               {
+                                   Toast.makeText(signup.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                               }
+                              }
+                          });
+                         // startActivity(new Intent(signup.this,HomeActivity.class));
                           progressDialog.dismiss();
 
                       }else{
-                          Toast.makeText(signup.this, "registration error", Toast.LENGTH_SHORT).show();
+                          Toast.makeText(signup.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                       }
                    }

@@ -83,12 +83,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()){
-                           Toast.makeText(MainActivity.this, "complete", Toast.LENGTH_SHORT).show();
-                           startActivity(new Intent(MainActivity.this,HomeActivity.class));
-                           progressDialog.dismiss();
+                           if(firebaseAuth.getCurrentUser().isEmailVerified()) {
+                               Toast.makeText(MainActivity.this, "complete", Toast.LENGTH_SHORT).show();
+                               startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                               progressDialog.dismiss();
+                           }else{
+                               Toast.makeText(MainActivity.this, "Please verify your email address ", Toast.LENGTH_SHORT).show();
+                               progressDialog.dismiss();
+                           }
                        }else
                        {
-                           Toast.makeText(MainActivity.this, "Please register first", Toast.LENGTH_SHORT).show();
+                           progressDialog.dismiss();
+                           Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                        }
                     }
                 });
