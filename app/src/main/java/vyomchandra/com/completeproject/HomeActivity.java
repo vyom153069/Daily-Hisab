@@ -113,12 +113,9 @@ public class HomeActivity extends AppCompatActivity {
                 String mDate= DateFormat.getDateInstance().format(new Date());
                 String id=mDatabase.push().getKey();
 
-                if(TextUtils.isEmpty(title)||TextUtils.isEmpty(description)||TextUtils.isEmpty(budget)||!TextUtils.isDigitsOnly(budget)) {
+                if(TextUtils.isEmpty(title)||TextUtils.isEmpty(budget)||!TextUtils.isDigitsOnly(budget)) {
                     if (TextUtils.isEmpty(title)) {
                         mTitle.setError("required");
-                    }
-                    if (TextUtils.isEmpty(description)) {
-                        mDescription.setError("required");
                     }
                     if (TextUtils.isEmpty(budget)) {
                         mBudget.setError("required");
@@ -256,13 +253,11 @@ public class HomeActivity extends AppCompatActivity {
                 Budget=mBudget.getText().toString().trim();
                 String mDate=DateFormat.getDateInstance().format(new Date());
 
-                if(TextUtils.isEmpty(Title)||TextUtils.isEmpty(Description)||TextUtils.isEmpty(Budget)||!TextUtils.isDigitsOnly(Budget)){
+                if(TextUtils.isEmpty(Title)||TextUtils.isEmpty(Budget)||!TextUtils.isDigitsOnly(Budget)){
                     if(TextUtils.isEmpty(Title)){
                         mTitle.setError("Required");
                     }
-                    if(TextUtils.isEmpty(Description)){
-                        mDescription.setError("Required");
-                    }
+
                     if(TextUtils.isEmpty(Budget)){
                         mBudget.setError("Required");
                     }

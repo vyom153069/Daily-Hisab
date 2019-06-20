@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
             android:id="@+id/description"
+            android:maxLines="3"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
     </LinearLayout>
     <LinearLayout
