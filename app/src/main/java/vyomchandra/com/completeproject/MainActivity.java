@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     private EditText email,pass;
-    private Button signin;
+    private Button signin,btFacebook;
     private ImageButton signup;
     TextView tvLogin,tvForgot;
 
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         signin=findViewById(R.id.sign_in);
         tvLogin=findViewById(R.id.tvLogin);
         tvForgot=findViewById(R.id.tvForgot);
+        btFacebook=findViewById(R.id.btFacebook);
 
         firebaseAuth=FirebaseAuth.getInstance();
 
@@ -109,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,forgot_pass.class));
+            }
+        });
+
+        btFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "facebook", Toast.LENGTH_SHORT).show();
             }
         });
     }
