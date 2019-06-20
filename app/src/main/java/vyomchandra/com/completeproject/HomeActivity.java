@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.support.v7.widget.SearchView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -39,6 +43,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+
+    private ShareActionProvider shareActionProvider;
+
 
     //globel variable
 
@@ -132,6 +139,39 @@ public class HomeActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+    private void firebaseSearch(String searchText){
+        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText).endAt(searchText+"\uf8ff");
+        FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
+                Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
+        ) {
+            @Override
+            protected void populateViewHolder(myviewHolder viewHolder, final Data model, final int position) {
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setbudget(model.getBudget());
+                viewHolder.setDate(model.getData());
+                viewHolder.setDescription(model.getDescription());
+                viewHolder.myView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        post_key=getRef(position).getKey();
+                        Title=model.getTitle();
+                        Description=model.getDescription();
+                        Budget=model.getBudget();
+                        updateData();
+
+                    }
+                });
+            }
+        };
+        recyclerView.setAdapter(adapter);
+    }
+
+//    private void setShareIntent(Intent shareIntent){
+//        if(shareActionProvider!=null){
+//            shareActionProvider.setShareIntent(shareIntent);
+//        }
+//    }
 
     @Override
     protected void onStart() {
@@ -251,8 +291,31 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.mainmenu,menu);
+        MenuItem menuItem=menu.findItem(R.id.search);
+//        MenuItem shareitem=menu.findItem(R.id.shareItem);
+//        shareActionProvider=(ShareActionProvider) shareitem.getActionProvider();
+
+
+
+        SearchView searchView= (SearchView)MenuItemCompat.getActionView(menuItem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                firebaseSearch(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                firebaseSearch(s);
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -293,10 +356,16 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.search:
                 Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
-                break;
+                return true;
+
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }
 
