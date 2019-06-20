@@ -352,6 +352,13 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
                 break;
             case R.id.shareItem:
+                Intent share=new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                String shareBody="Your body here";
+                String shareSub="four subjects here";
+                share.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                share.putExtra(Intent.EXTRA_TEXT,shareBody);
+                startActivity(share);
                 Toast.makeText(this, "share", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.search:
