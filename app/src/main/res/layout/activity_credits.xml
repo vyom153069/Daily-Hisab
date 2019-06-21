@@ -8,7 +8,8 @@
     android:orientation="vertical"
     android:elevation="20dp"
     android:layout_margin="10dp"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/border">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

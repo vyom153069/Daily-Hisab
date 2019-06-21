@@ -10,6 +10,11 @@
         android:id="@+id/toolbar"
         ></include>
 
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:menu="@menu/home_layout"-->
+        <!--android:background="@color/colorAccent"></android.support.design.widget.BottomNavigationView>-->
    <android.support.design.widget.CoordinatorLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent">
