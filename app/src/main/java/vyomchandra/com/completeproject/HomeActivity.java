@@ -138,7 +138,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void firebaseSearch(String searchText){
-        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText).endAt(searchText+"\uf8ff");
+        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText.toUpperCase()).endAt(searchText.toLowerCase()+"\uf8ff");
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
         ) {
@@ -323,7 +323,8 @@ public class HomeActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mAuth.signOut();
+                        //mAuth.signOut();
+                        FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                     }
                 });
@@ -354,10 +355,10 @@ public class HomeActivity extends AppCompatActivity {
                 share.putExtra(Intent.EXTRA_SUBJECT,shareSub);
                 share.putExtra(Intent.EXTRA_TEXT,shareBody);
                 startActivity(share);
-                Toast.makeText(this, "share", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "share", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.search:
-                Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
                 return true;
 
 
