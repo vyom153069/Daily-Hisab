@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text="This app basically saves your daily record how much money you spent on a perticular date. This is for maintening our daily expenses  "
+            android:text="This app basically saves your daily record how much money you spent on a particular date. This is for maintaining our daily expenses  "
             android:layout_marginTop="5dp"
             android:textSize="20dp"
             android:padding="10dp"
