@@ -80,7 +80,7 @@ signup extends AppCompatActivity {
                    pass.setError("required");
                    return;
                }
-               progressDialog.setMessage("processing...");
+               progressDialog.setMessage("Processing...");
                progressDialog.show();
                firebaseAuth.createUserWithEmailAndPassword(emails,passs).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                    @Override

@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                progressDialog.setMessage("processing...");
+                progressDialog.setMessage("Processing...");
                 progressDialog.show();
                 firebaseAuth.signInWithEmailAndPassword(
 

@@ -3,6 +3,7 @@ package vyomchandra.com.completeproject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
@@ -43,6 +44,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+
+    boolean doublebackpressedOnce=false;
 
     private ShareActionProvider shareActionProvider;
 
@@ -368,7 +371,17 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finishAffinity();
+        if(doublebackpressedOnce){
+            finishAffinity();
+        }
+        this.doublebackpressedOnce=true;
+        Toast.makeText(this, "Please press back again to exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doublebackpressedOnce=false;
+            }
+        },2000);
     }
 }
 
