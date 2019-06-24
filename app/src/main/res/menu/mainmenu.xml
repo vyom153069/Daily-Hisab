@@ -7,6 +7,11 @@
         app:showAsAction="always"
         android:icon="@drawable/search"
         app:actionViewClass="android.support.v7.widget.SearchView"></item>
+    <item android:title="sort"
+        android:id="@+id/sort"
+        app:showAsAction="always"
+        android:icon="@drawable/sort"></item>
+
     <item
         android:id="@+id/credits"
         android:title="About"

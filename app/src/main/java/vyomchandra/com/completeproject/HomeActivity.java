@@ -1,10 +1,12 @@
 package vyomchandra.com.completeproject;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
@@ -27,11 +29,17 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import vyomchandra.com.completeproject.modal.Data;
@@ -46,8 +54,10 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     boolean doublebackpressedOnce=false;
+    boolean onlySort=false;
 
     private ShareActionProvider shareActionProvider;
+     //int sum=0;
 
 
     //globel variable
@@ -141,7 +151,39 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void firebaseSearch(String searchText){
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText.toUpperCase()).endAt(searchText.toLowerCase()+"\uf8ff");
+        FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
+                Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
+        ) {
+            @Override
+            protected void populateViewHolder(myviewHolder viewHolder, final Data model, final int position) {
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setbudget(model.getBudget());
+                viewHolder.setDate(model.getData());
+                viewHolder.setDescription(model.getDescription());
+                viewHolder.myView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        post_key=getRef(position).getKey();
+                        Title=model.getTitle();
+                        Description=model.getDescription();
+                        Budget=model.getBudget();
+                        updateData();
+
+                    }
+                });
+
+            }
+        };
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void firebaseSearchDate(){
+        onlySort=true;
+       // doublebackpressedOnce=false;
+        Query firebaseSearchQuary=mDatabase.orderByChild("data").startAt(DateFormat.getDateInstance().format(new Date())).endAt(DateFormat.getDateInstance().format(new Date()));
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
         ) {
@@ -164,8 +206,45 @@ public class HomeActivity extends AppCompatActivity {
                 });
             }
         };
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView.setAdapter(adapter);
     }
+    private void firebaseSearchMonth(){
+        onlySort=true;
+        //doublebackpressedOnce=false;
+        //final float[] sumBudget = {0.0f};
+        Calendar c=Calendar.getInstance();
+        int year=c.get(Calendar.YEAR);
+        Query firebaseSearchQuary=mDatabase.orderByChild("data").startAt(1+" "+Calendar.MONTH+" "+year).endAt(DateFormat.getDateInstance().format(new Date()));
+        FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
+                Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
+        ) {
+            @Override
+            protected void populateViewHolder(myviewHolder viewHolder, final Data model, final int position) {
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setbudget(model.getBudget());
+                viewHolder.setDate(model.getData());
+                viewHolder.setDescription(model.getDescription());
+                viewHolder.myView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        post_key=getRef(position).getKey();
+                        Title=model.getTitle();
+                        Description=model.getDescription();
+                        Budget=model.getBudget();
+                        //sum=sum+Integer.parseInt(model.getBudget());
+                        updateData();
+
+                    }
+                });
+            }
+        };
+        recyclerView.setAdapter(adapter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Toast.makeText(this, "Total :"+sum, Toast.LENGTH_SHORT).show();
+    }
+
+
 
 //    private void setShareIntent(Intent shareIntent){
 //        if(shareActionProvider!=null){
@@ -196,6 +275,8 @@ public class HomeActivity extends AppCompatActivity {
 
                     }
                 });
+
+
             }
         };
         recyclerView.setAdapter(adapter);
@@ -361,27 +442,71 @@ public class HomeActivity extends AppCompatActivity {
                // Toast.makeText(this, "share", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.search:
+                //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                // Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
                 return true;
+
+            case R.id.sort:
+                showSortDialoge();
+                return true;
+            case android.R.id.home:
+                //super.onBackPressed();
+                onBackPressed();
+                return true;
+
 
 
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void showSortDialoge() {
+
+        String[] sortOptions={"Today","This Month"};
+
+        final AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Sort by")
+                .setIcon(getResources().getDrawable(android.R.drawable.ic_menu_sort_by_size,getTheme()))
+                .setCancelable(true)
+                .setItems(sortOptions, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        if(i==0){
+                           firebaseSearchDate();
+
+
+                        }
+                        if(i==1){
+                            firebaseSearchMonth();
+
+                        }
+
+                    }
+                });
+        builder.show();
+    }
+
     @Override
     public void onBackPressed() {
-        if(doublebackpressedOnce){
+        if(onlySort==true){
+            super.onBackPressed();
+            onlySort=false;
+            //doublebackpressedOnce=false;
+        }
+        else if(doublebackpressedOnce){
             finishAffinity();
         }
-        this.doublebackpressedOnce=true;
-        Toast.makeText(this, "Please press back again to exit", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doublebackpressedOnce=false;
-            }
-        },2000);
+        else {
+            this.doublebackpressedOnce = true;
+            Toast.makeText(this, "Please press back again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doublebackpressedOnce = false;
+                }
+            }, 2000);
+        }
     }
 }
 
