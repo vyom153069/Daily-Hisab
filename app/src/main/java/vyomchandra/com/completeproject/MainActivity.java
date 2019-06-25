@@ -174,16 +174,15 @@ public class MainActivity extends AppCompatActivity {
     private void registerAlarm() {
         Calendar calendar=Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY,22);
-//        calendar.set(Calendar.MINUTE,56);
-//        calendar.set(Calendar.SECOND,0);
+        //calendar.set(Calendar.MINUTE,17);
+        //calendar.set(Calendar.SECOND,0);
 
-        Toast.makeText(this, "register alarm", Toast.LENGTH_SHORT).show();
-
-        Intent intent=new Intent(MainActivity.this, AlarmReciver.class);
-        PendingIntent pendingIntent=PendingIntent.getBroadcast(MainActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager am=(AlarmManager)this.getSystemService(this.ALARM_SERVICE);
-        am.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
-
+        if(calendar.getTimeInMillis()>System.currentTimeMillis()) {
+            Intent intent = new Intent(MainActivity.this, AlarmReciver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager am = (AlarmManager) this.getSystemService(this.ALARM_SERVICE);
+            am.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
     }
 
     @Override

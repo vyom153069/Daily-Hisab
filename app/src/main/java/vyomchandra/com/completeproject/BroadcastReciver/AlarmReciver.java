@@ -24,7 +24,7 @@ public class AlarmReciver extends BroadcastReceiver {
         NotificationManager notificationManager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Intent notificationIntent=new Intent(context, MainActivity.class);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent pendingIntent=PendingIntent.getActivity(context,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -48,7 +48,7 @@ public class AlarmReciver extends BroadcastReceiver {
                 .setVibrate(new long[]{1000,1000,1000,1000});
 
         notificationManager.notify(0,builder.build());
-        Toast.makeText(context, "broadcast", Toast.LENGTH_SHORT).show();
+
 
     }
 }
