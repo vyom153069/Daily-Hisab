@@ -1,6 +1,8 @@
 package vyomchandra.com.completeproject;
 
 import android.app.ActivityOptions;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +36,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Calendar;
+
+import vyomchandra.com.completeproject.BroadcastReciver.AlarmReciver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         btFacebook=findViewById(R.id.btFacebook);
 
         firebaseAuth=FirebaseAuth.getInstance();
+
+        registerAlarm();
+
+
 
 
         // Initialize Facebook Login button
@@ -160,17 +169,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,forgot_pass.class));
             }
         });
+    }
 
-//        btFacebook.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(MainActivity.this, "facebook", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+    private void registerAlarm() {
+        Calendar calendar=Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,22);
+//        calendar.set(Calendar.MINUTE,56);
+//        calendar.set(Calendar.SECOND,0);
 
+        Toast.makeText(this, "register alarm", Toast.LENGTH_SHORT).show();
 
-
-
+        Intent intent=new Intent(MainActivity.this, AlarmReciver.class);
+        PendingIntent pendingIntent=PendingIntent.getBroadcast(MainActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am=(AlarmManager)this.getSystemService(this.ALARM_SERVICE);
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
 
     }
 
@@ -217,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if(currentUser!=null){
