@@ -1,5 +1,6 @@
 package vyomchandra.com.completeproject;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,9 +57,6 @@ public class HomeActivity extends AppCompatActivity {
 
     boolean doublebackpressedOnce=false;
     boolean onlySort=false;
-
-    private ShareActionProvider shareActionProvider;
-     //int sum=0;
 
 
     //globel variable
@@ -245,12 +244,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-
-//    private void setShareIntent(Intent shareIntent){
-//        if(shareActionProvider!=null){
-//            shareActionProvider.setShareIntent(shareIntent);
-//        }
-//    }
 
     @Override
     protected void onStart() {

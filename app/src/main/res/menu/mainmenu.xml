@@ -9,7 +9,7 @@
         app:actionViewClass="android.support.v7.widget.SearchView"></item>
     <item android:title="sort"
         android:id="@+id/sort"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom|collapseActionView"
         android:icon="@drawable/sort"></item>
 
     <item

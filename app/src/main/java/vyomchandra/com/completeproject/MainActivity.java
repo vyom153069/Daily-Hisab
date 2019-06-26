@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()){
                            if(firebaseAuth.getCurrentUser().isEmailVerified()) {
-                               Toast.makeText(MainActivity.this, "complete", Toast.LENGTH_LONG).show();
+                               Toast.makeText(MainActivity.this, "logged in", Toast.LENGTH_LONG).show();
                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
                                progressDialog.dismiss();
                            }else{
@@ -173,9 +173,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void registerAlarm() {
         Calendar calendar=Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,22);
-        //calendar.set(Calendar.MINUTE,17);
-        //calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.HOUR_OF_DAY,14);
+        calendar.set(Calendar.MINUTE,45);
+        calendar.set(Calendar.SECOND,0);
 
         if(calendar.getTimeInMillis()>System.currentTimeMillis()) {
             Intent intent = new Intent(MainActivity.this, AlarmReciver.class);
@@ -239,7 +239,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI() {
 
-        Toast.makeText(MainActivity.this,"logged in",Toast.LENGTH_LONG).show();
          startActivity(new Intent(MainActivity.this,HomeActivity.class));
     }
 }
