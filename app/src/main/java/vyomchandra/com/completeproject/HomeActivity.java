@@ -119,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
                 .setRemindInterval(2)
                 .monitor();
         AppRate.showRateDialogIfMeetsConditions(this);
-        AppRate.with(this).showRateDialog(this);
+        //AppRate.with(this).showRateDialog(this);
     }
 
 
