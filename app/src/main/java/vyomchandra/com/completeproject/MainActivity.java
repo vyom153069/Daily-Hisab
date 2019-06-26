@@ -25,6 +25,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CallbackManager mCallbackManager;
     String TAG="tag";
+
 
 
     @Override
@@ -173,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void registerAlarm() {
         Calendar calendar=Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,14);
-        calendar.set(Calendar.MINUTE,45);
+        calendar.set(Calendar.HOUR_OF_DAY,22);
+        calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.SECOND,0);
 
         if(calendar.getTimeInMillis()>System.currentTimeMillis()) {

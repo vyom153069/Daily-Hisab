@@ -29,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -57,6 +59,11 @@ public class HomeActivity extends AppCompatActivity {
 
     boolean doublebackpressedOnce=false;
     boolean onlySort=false;
+
+
+
+    private AdView mAdView;
+
 
 
     //globel variable
@@ -99,7 +106,10 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
+        //admob
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 
