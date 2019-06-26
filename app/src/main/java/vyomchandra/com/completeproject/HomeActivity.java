@@ -172,7 +172,7 @@ public class HomeActivity extends AppCompatActivity {
     private void firebaseSearch(String searchText){
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText.toLowerCase()).endAt(searchText.toLowerCase()+"\uf8ff");
+        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText.toUpperCase()).endAt(searchText.toLowerCase()+"\uf8ff");
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
         ) {
