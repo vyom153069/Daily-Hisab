@@ -42,5 +42,7 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-login:5.0.3'
 
+    implementation 'com.github.hotchemi:android-rate:1.0.1'
+
 
 }

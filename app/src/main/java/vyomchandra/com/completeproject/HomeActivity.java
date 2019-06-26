@@ -46,6 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import hotchemi.android.rate.AppRate;
 import vyomchandra.com.completeproject.modal.Data;
 
 
@@ -110,6 +111,15 @@ public class HomeActivity extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+
+        AppRate.with(this)
+                .setInstallDays(2)
+                .setLaunchTimes(3)
+                .setRemindInterval(2)
+                .monitor();
+        AppRate.showRateDialogIfMeetsConditions(this);
+        AppRate.with(this).showRateDialog(this);
     }
 
 
