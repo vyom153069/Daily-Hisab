@@ -230,7 +230,7 @@
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_margin="1dp"
         android:layout_centerHorizontal="true"
         ads:adUnitId="ca-app-pub-4861743746184237/7753476795"/>
 

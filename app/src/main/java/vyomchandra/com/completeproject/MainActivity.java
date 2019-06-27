@@ -25,7 +25,9 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     String TAG="tag";
 
+    private AdView mAdView;
+
+
 
 
     @Override
@@ -72,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
 
         registerAlarm();
+
+        MobileAds.initialize(this, "R.string.app_id");
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
 
 

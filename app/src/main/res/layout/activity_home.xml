@@ -31,7 +31,7 @@
            android:layout_height="wrap_content"
            ads:adSize="BANNER"
            android:layout_gravity="bottom|center"
-           android:layout_marginBottom="20dp"
+           android:layout_marginBottom="1dp"
            ads:adUnitId="@string/banner_ad_unit_id">
        </com.google.android.gms.ads.AdView>
 
