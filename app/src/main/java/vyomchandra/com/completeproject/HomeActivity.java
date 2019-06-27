@@ -1,13 +1,10 @@
 package vyomchandra.com.completeproject;
 
-import android.content.ClipData;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
@@ -15,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,25 +20,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.widget.SearchView;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -108,6 +99,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         //admob
+        MobileAds.initialize(this, "R.string.app_id");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -170,8 +162,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void firebaseSearch(String searchText){
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText.toUpperCase()).endAt(searchText.toLowerCase()+"\uf8ff");
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
@@ -201,7 +191,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void firebaseSearchDate(){
         onlySort=true;
-       // doublebackpressedOnce=false;
         Query firebaseSearchQuary=mDatabase.orderByChild("data").startAt(DateFormat.getDateInstance().format(new Date())).endAt(DateFormat.getDateInstance().format(new Date()));
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
@@ -230,8 +219,6 @@ public class HomeActivity extends AppCompatActivity {
     }
     private void firebaseSearchMonth(){
         onlySort=true;
-        //doublebackpressedOnce=false;
-        //final float[] sumBudget = {0.0f};
         Calendar c=Calendar.getInstance();
         int year=c.get(Calendar.YEAR);
         Query firebaseSearchQuary=mDatabase.orderByChild("data").startAt(1+" "+Calendar.MONTH+" "+year).endAt(DateFormat.getDateInstance().format(new Date()));
@@ -260,7 +247,6 @@ public class HomeActivity extends AppCompatActivity {
         };
         recyclerView.setAdapter(adapter);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //Toast.makeText(this, "Total :"+sum, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -434,13 +420,8 @@ public class HomeActivity extends AppCompatActivity {
                 AlertDialog alert=builder.create();
                 alert.setTitle("Exit");
                 alert.show();
-
-                //mAuth.signOut();
-
-                // finish();
                 break;
             case R.id.credits:
-                //startActivity(new Intent(this,credits.class));
                 Intent i=new Intent(this,credits.class);
                 startActivity(i);
                 break;
@@ -452,11 +433,8 @@ public class HomeActivity extends AppCompatActivity {
                 share.putExtra(Intent.EXTRA_SUBJECT,shareSub);
                 share.putExtra(Intent.EXTRA_TEXT,shareBody);
                 startActivity(share);
-               // Toast.makeText(this, "share", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.search:
-                //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-               // Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.sort:
