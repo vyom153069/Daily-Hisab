@@ -112,10 +112,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        if((firebaseAuth.getCurrentUser() != null) && firebaseAuth.getCurrentUser().isEmailVerified())
-        {
-            startActivity(new Intent(this,HomeActivity.class));
-        }
+//        if((firebaseAuth.getCurrentUser() != null) && firebaseAuth.getCurrentUser().isEmailVerified())
+//        {
+//            startActivity(new Intent(this,HomeActivity.class));
+//        }
 
         progressDialog=new ProgressDialog(MainActivity.this);
 
@@ -231,5 +231,14 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if((firebaseAuth.getCurrentUser() != null) && firebaseAuth.getCurrentUser().isEmailVerified())
+        {
+            startActivity(new Intent(this,HomeActivity.class));
+        }
     }
 }

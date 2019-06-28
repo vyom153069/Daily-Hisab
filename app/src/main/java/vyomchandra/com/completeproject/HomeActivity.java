@@ -31,13 +31,17 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 import hotchemi.android.rate.AppRate;
 import vyomchandra.com.completeproject.modal.Data;
@@ -52,7 +56,8 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     boolean doublebackpressedOnce=false;
-    boolean onlySort=false;
+    boolean action=false;
+    int total=0;
 
 
 
@@ -181,7 +186,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void firebaseSearch(String searchText){
-        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText.toUpperCase()).endAt(searchText.toLowerCase()+"\uf8ff");
+        action=true;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText.toUpperCase()).endAt(searchText.toUpperCase()+"\uf8ff");
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
         ) {
@@ -209,7 +216,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void firebaseSearchDate(){
-        onlySort=true;
+        action=true;
+        //doublebackpressedOnce=false;
         Query firebaseSearchQuary=mDatabase.orderByChild("data").startAt(DateFormat.getDateInstance().format(new Date())).endAt(DateFormat.getDateInstance().format(new Date()));
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
@@ -237,7 +245,7 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
     private void firebaseSearchMonth(){
-        onlySort=true;
+        action=true;
         Calendar c=Calendar.getInstance();
         int year=c.get(Calendar.YEAR);
         Query firebaseSearchQuary=mDatabase.orderByChild("data").startAt(1+" "+Calendar.MONTH+" "+year).endAt(DateFormat.getDateInstance().format(new Date()));
@@ -504,9 +512,9 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(onlySort==true){
+        if(action==true){
             super.onBackPressed();
-            onlySort=false;
+            action=false;
             //doublebackpressedOnce=false;
         }
         else if(doublebackpressedOnce){
