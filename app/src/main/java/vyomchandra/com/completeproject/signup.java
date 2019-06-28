@@ -94,6 +94,7 @@ signup extends AppCompatActivity {
                                    Toast.makeText(signup.this, "Registered Successfully please check email for verification", Toast.LENGTH_LONG).show();
                                    email.setText("");
                                    pass.setText("");
+                                   confirm.setText("");
                                }
                                else
                                {
@@ -101,12 +102,11 @@ signup extends AppCompatActivity {
                                }
                               }
                           });
-                         // startActivity(new Intent(signup.this,HomeActivity.class));
                           progressDialog.dismiss();
 
                       }else{
                           Toast.makeText(signup.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-
+                          progressDialog.dismiss();
                       }
                    }
                });
@@ -114,11 +114,10 @@ signup extends AppCompatActivity {
        });
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        finish();
-//        System.exit(0);
-//    }
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

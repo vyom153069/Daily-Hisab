@@ -87,6 +87,7 @@ public class HomeActivity extends AppCompatActivity {
         String uid=mUser.getUid();
         mDatabase= FirebaseDatabase.getInstance().getReference().child("AllData").child(uid);
 
+        Toast.makeText(this, mUser.getEmail()+"", Toast.LENGTH_SHORT).show();
 
         //floating button
         floatingActionButton=findViewById(R.id.flotingbtn);

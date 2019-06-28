@@ -78,11 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
         registerAlarm();
 
-        MobileAds.initialize(this, "R.string.app_id");
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
 
 
 
@@ -117,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        if(firebaseAuth.getCurrentUser()!=null&&firebaseAuth.getCurrentUser().isEmailVerified())
+        if((firebaseAuth.getCurrentUser() != null) && firebaseAuth.getCurrentUser().isEmailVerified())
         {
             startActivity(new Intent(this,HomeActivity.class));
         }
+
         progressDialog=new ProgressDialog(MainActivity.this);
 
 
@@ -133,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 pairs[0] = new Pair<View,String> (tvLogin,"login");
                 ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
                 startActivity(i,activityOptions.toBundle());
+
             }
         });
         signin.setOnClickListener(new View.OnClickListener() {
@@ -224,34 +220,16 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            updateUI();
+                           startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI();
+
                         }
 
-                        // ...
                     }
                 });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if(currentUser!=null){
-            updateUI();
-        }
-
-    }
-
-    private void updateUI() {
-
-         startActivity(new Intent(MainActivity.this,HomeActivity.class));
     }
 }
