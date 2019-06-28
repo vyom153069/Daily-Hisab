@@ -154,7 +154,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String title=mTitle.getText().toString().trim();
+                String title=mTitle.getText().toString().toLowerCase().trim();
                 String description=mDescription.getText().toString().trim();
                 String budget=mBudget.getText().toString().trim();
 
@@ -188,7 +188,7 @@ public class HomeActivity extends AppCompatActivity {
     private void firebaseSearch(String searchText){
         action=true;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText.toUpperCase()).endAt(searchText.toUpperCase()+"\uf8ff");
+        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText).endAt(searchText+"\uf8ff");
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
         ) {
@@ -275,6 +275,8 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+
 
 
 
