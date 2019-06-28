@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.widget.SearchView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -464,11 +465,11 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.shareItem:
                 Intent share=new Intent(Intent.ACTION_SEND);
                 share.setType("text/plain");
-                String shareBody="Your body here";
+                String shareBody="app link";
                 String shareSub="four subjects here";
                 share.putExtra(Intent.EXTRA_SUBJECT,shareSub);
                 share.putExtra(Intent.EXTRA_TEXT,shareBody);
-                startActivity(share);
+                startActivity(Intent.createChooser(share,"Share via"));
                 break;
             case R.id.search:
                 return true;
