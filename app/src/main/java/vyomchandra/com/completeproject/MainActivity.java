@@ -111,12 +111,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-//        if((firebaseAuth.getCurrentUser() != null) && firebaseAuth.getCurrentUser().isEmailVerified())
-//        {
-//            startActivity(new Intent(this,HomeActivity.class));
-//        }
-
         progressDialog=new ProgressDialog(MainActivity.this);
 
 
@@ -175,7 +169,13 @@ public class MainActivity extends AppCompatActivity {
         tvForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,forgot_pass.class));
+                //startActivity(new Intent(MainActivity.this,forgot_pass.class));
+                Intent i=new Intent(MainActivity.this,forgot_pass.class);
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View,String> (tvLogin,"login");
+                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+                startActivity(i,activityOptions.toBundle());
+
             }
         });
     }

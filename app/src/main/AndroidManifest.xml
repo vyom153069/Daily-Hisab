@@ -12,9 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".userActivity"></activity>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4861743746184237~1795746567"/>
+            android:value="ca-app-pub-4861743746184237~1795746567" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
@@ -39,11 +41,12 @@
 
         <receiver android:name=".BroadcastReciver.AlarmReciver" />
 
-        <activity android:name=".forgot_pass"></activity>
+        <activity android:name=".forgot_pass" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".credits" />
         <activity android:name=".signup" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

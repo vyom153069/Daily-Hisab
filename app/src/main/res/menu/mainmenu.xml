@@ -12,6 +12,8 @@
         android:id="@+id/sort"
         app:showAsAction="ifRoom|collapseActionView"
         android:icon="@drawable/sort"></item>
+    <item android:id="@+id/user"
+        android:title="User Info"></item>
 
     <item
         android:id="@+id/credits"

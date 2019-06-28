@@ -136,6 +136,8 @@ public class HomeActivity extends AppCompatActivity {
                 .monitor();
         AppRate.showRateDialogIfMeetsConditions(this);
         //AppRate.with(this).showRateDialog(this);
+
+
     }
 
 
@@ -188,7 +190,7 @@ public class HomeActivity extends AppCompatActivity {
     private void firebaseSearch(String searchText){
         action=true;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText).endAt(searchText+"\uf8ff");
+        Query firebaseSearchQuary=mDatabase.orderByChild("title").startAt(searchText).endAt(searchText +"\uf8ff");
         FirebaseRecyclerAdapter<Data,myviewHolder> adapter=new FirebaseRecyclerAdapter<Data, myviewHolder>(
                 Data.class,R.layout.dataitem,myviewHolder.class,firebaseSearchQuary
         ) {
@@ -477,6 +479,9 @@ public class HomeActivity extends AppCompatActivity {
             case android.R.id.home:
                 //super.onBackPressed();
                 onBackPressed();
+                return true;
+            case R.id.user:
+                startActivity(new Intent(getApplicationContext(),userActivity.class));
                 return true;
 
 
