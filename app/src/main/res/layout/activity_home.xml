@@ -16,24 +16,27 @@
         <!--android:layout_height="wrap_content"-->
         <!--app:menu="@menu/home_layout"-->
         <!--android:background="@color/colorAccent"></android.support.design.widget.BottomNavigationView>-->
-   <android.support.design.widget.CoordinatorLayout
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="1dp"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
+    <android.support.design.widget.CoordinatorLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent">
+
 
        <android.support.v7.widget.RecyclerView
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:id="@+id/recyler"></android.support.v7.widget.RecyclerView>
 
-       <com.google.android.gms.ads.AdView
-           android:id="@+id/adView"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           ads:adSize="BANNER"
-           android:layout_gravity="bottom|center"
-           android:layout_marginBottom="1dp"
-           ads:adUnitId="@string/banner_ad_unit_id">
-       </com.google.android.gms.ads.AdView>
 
        <android.support.design.widget.FloatingActionButton
            android:layout_width="wrap_content"

@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     String TAG="tag";
 
-    private AdView mAdView;
+
 
 
 

@@ -24,8 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private AdView mAdView;
+    private InterstitialAd interstitialAd;
 
 
 
@@ -87,7 +90,6 @@ public class HomeActivity extends AppCompatActivity {
         String uid=mUser.getUid();
         mDatabase= FirebaseDatabase.getInstance().getReference().child("AllData").child(uid);
 
-        Toast.makeText(this, mUser.getEmail()+"", Toast.LENGTH_SHORT).show();
 
         //floating button
         floatingActionButton=findViewById(R.id.flotingbtn);
@@ -104,6 +106,22 @@ public class HomeActivity extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        interstitialAd=new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-4861743746184237/3074552108");
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+
+        interstitialAd.setAdListener(new AdListener()
+
+
+                                     {
+                                         @Override
+                                         public void onAdClosed() {
+                                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                         }
+                                     }
+
+        );
 
 
         AppRate.with(this)
@@ -409,8 +427,13 @@ public class HomeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //mAuth.signOut();
                         FirebaseAuth.getInstance().signOut();
+                        if(interstitialAd.isLoaded()){
+                            interstitialAd.show();
+                        }else{
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                     }
+                    }
+
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override

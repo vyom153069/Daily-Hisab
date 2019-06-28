@@ -17,6 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +34,8 @@ public class forgot_pass extends AppCompatActivity {
     private RelativeLayout rlayout;
     private Animation animation;
     private Menu menu;
+
+    private AdView mAdView;
 
 
     @Override
@@ -48,6 +53,12 @@ public class forgot_pass extends AppCompatActivity {
         rlayout     = findViewById(R.id.rlayout);
         animation   = AnimationUtils.loadAnimation(this,R.anim.uptodown);
         rlayout.setAnimation(animation);
+
+        MobileAds.initialize(this, "R.string.app_id");
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
 
         progressDialog=new ProgressDialog(forgot_pass.this);
