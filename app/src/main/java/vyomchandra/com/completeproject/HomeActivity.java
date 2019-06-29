@@ -24,6 +24,7 @@ import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -440,6 +441,7 @@ public class HomeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //mAuth.signOut();
                         FirebaseAuth.getInstance().signOut();
+                        LoginManager.getInstance().logOut();
                         if(interstitialAd.isLoaded()){
                             interstitialAd.show();
                         }else{
