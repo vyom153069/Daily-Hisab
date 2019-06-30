@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text="This app basically saves your daily record how much money you spent on a particular date. This is for maintaining our daily expenses  "
+            android:text="@string/about"
             android:layout_marginTop="5dp"
             android:textSize="20dp"
             android:padding="10dp"
@@ -53,11 +53,11 @@
             android:layout_gravity="center"
             android:padding="10dp"
 
-            android:text="You can give us your valuable suggestions at:"/>
+            android:text="@string/contect"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="vyomchandra@gmail.com"
+            android:text="@string/Email"
             android:contextClickable="true"
             android:padding="10dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"

@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Daily Hisab</string>
+    <string name="app_name">MoneyEx</string>
+    <string name="about">This app basically saves your daily record how much money you spent on a particular date. This is for maintaining our daily expenses  </string>
+    <string name="contect">You can give us your valuable suggestions at:</string>
+    <string name="Email">vyomchandra@gmail.com</string>
 
     <string name="facebook_app_id">443413029771356</string>
     <string name="fb_login_protocol_scheme">fb443413029771356</string>

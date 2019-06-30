@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -23,8 +24,16 @@ public class userActivity extends AppCompatActivity {
 
         userEmail=findViewById(R.id.userEmail);
         mAuth=FirebaseAuth.getInstance();
-        userEmail.setText(mAuth.getCurrentUser().getEmail());
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        userEmail.setText(mAuth.getCurrentUser().getDisplayName());
+
+        if(userEmail.getText()==""){
+            userEmail.setText(mAuth.getCurrentUser().getEmail());
+        }
+
+
+
+
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) findViewById(R.id.bgHeader);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
