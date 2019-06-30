@@ -236,9 +236,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if((firebaseAuth.getCurrentUser() != null) && firebaseAuth.getCurrentUser().isEmailVerified())
+        if((firebaseAuth.getCurrentUser() != null) && (firebaseAuth.getCurrentUser().isEmailVerified())||isLoggedIn())
         {
             startActivity(new Intent(this,HomeActivity.class));
         }
+    }
+
+    public boolean isLoggedIn(){
+        AccessToken accessToken=AccessToken.getCurrentAccessToken();
+        return accessToken!=null;
     }
 }
