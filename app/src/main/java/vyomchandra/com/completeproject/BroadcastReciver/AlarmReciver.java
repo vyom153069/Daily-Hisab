@@ -6,12 +6,10 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
 
 import vyomchandra.com.completeproject.MainActivity;
 import vyomchandra.com.completeproject.R;
@@ -38,8 +36,8 @@ public class AlarmReciver extends BroadcastReceiver {
 
 
         NotificationCompat.Builder builder=new NotificationCompat.Builder(context,"MyNotification")
-                .setSmallIcon(R.drawable.logo)
-                .setContentTitle("Daily Hisab")
+                .setSmallIcon(R.drawable.moneylogo)
+                .setContentTitle("MoneyEx")
                 .setContentText("Hey Buddy ! how much you spent today ??")
                 .setSound(alarmSound)
                 .setAutoCancel(true)
