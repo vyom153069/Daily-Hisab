@@ -109,13 +109,9 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         //admob
-        MobileAds.initialize(this, "R.string.app_id");
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
         interstitialAd=new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-4861743746184237/3074552108");
+        interstitialAd.setAdUnitId("ca-app-pub-4861743746184237/1160970091");
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
         interstitialAd.setAdListener(new AdListener()

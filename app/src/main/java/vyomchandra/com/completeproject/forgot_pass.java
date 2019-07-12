@@ -55,7 +55,7 @@ public class forgot_pass extends AppCompatActivity {
         rlayout.setAnimation(animation);
 
         MobileAds.initialize(this, "R.string.app_id");
-        mAdView = findViewById(R.id.adView);
+        mAdView = findViewById(R.id.adView1);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 

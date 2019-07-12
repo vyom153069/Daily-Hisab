@@ -17,15 +17,6 @@
         <!--app:menu="@menu/home_layout"-->
         <!--android:background="@color/colorAccent"></android.support.design.widget.BottomNavigationView>-->
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="1dp"
-        ads:adUnitId="@string/banner_ad_unit_id">
-    </com.google.android.gms.ads.AdView>
 
     <android.support.design.widget.CoordinatorLayout
        android:layout_width="match_parent"

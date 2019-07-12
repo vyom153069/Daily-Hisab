@@ -40,7 +40,7 @@ public class userActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
         MobileAds.initialize(this, "R.string.app_id");
-        mAdView = findViewById(R.id.adView);
+        mAdView = findViewById(R.id.adView1);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
